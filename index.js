@@ -4,7 +4,7 @@ const app = express()
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+require('dotenv').config();
 app.use(express.json())
 // Use body-parser middleware to parse JSON and URL-encoded request bodies
 app.use(bodyParser.json());
@@ -17,7 +17,7 @@ app.use(cors());
 app.use('/', require('./routes/Routes'))
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://Vinayaka:Vinayaka@vicky.jz4bvkd.mongodb.net/DJ', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
